@@ -3,7 +3,8 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
 import "./index.css";
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
+import { StateContextProvider } from "./context";
 
 // This is the chainId your dApp will work on.
 const activeChainId = ChainId.Mainnet;
@@ -11,11 +12,11 @@ const activeChainId = ChainId.Mainnet;
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
-  <React.StrictMode>
+  <ThirdwebProvider desiredChainId={ChainId.Goerli}>
     <BrowserRouter>
-    <ThirdwebProvider desiredChainId={ChainId.Goerli}>
-      <App />
-    </ThirdwebProvider>
+      <StateContextProvider>
+        <App />
+      </StateContextProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  </ThirdwebProvider>
 );
